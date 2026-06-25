@@ -1,0 +1,15 @@
+# Channel tool configuration
+# List MCP servers the agent is allowed to use in this channel.
+# Built-in tools (web_search, run_python, search_channel_history) are always available.
+
+# Example: GitHub MCP server
+# [[mcp_server]]
+# name = "github"
+# url = "mcp://localhost:3001"
+# allowed_tools = ["list_prs", "get_file", "create_comment"]
+
+# Example: Linear MCP server
+# [[mcp_server]]
+# name = "linear"
+# url = "mcp://localhost:3002"
+# allowed_tools = ["list_issues", "create_issue", "update_status"]
