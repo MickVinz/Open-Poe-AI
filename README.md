@@ -110,12 +110,19 @@ Slack (Socket Mode)
 
 Uses [LiteLLM](https://github.com/BerriAI/litellm) — swap provider via `LLM_MODEL` in `.env`:
 
-| Provider | Model string |
-|---|---|
-| Anthropic (default) | `claude-sonnet-4-6` |
-| OpenAI | `gpt-4o` |
-| Gemini | `gemini/gemini-2.0-flash` |
-| Local (Ollama) | `ollama/llama3` |
+| Provider | Model string | Key env var |
+|---|---|---|
+| Anthropic (default) | `claude-sonnet-4-6` | `ANTHROPIC_API_KEY` |
+| OpenAI | `gpt-4o` | `OPENAI_API_KEY` |
+| Google Gemini | `gemini/gemini-2.0-flash` | `GEMINI_API_KEY` |
+| Groq | `groq/llama-3.3-70b-versatile` | `GROQ_API_KEY` |
+| Local (Ollama) | `ollama/llama3` | *(none)* |
+
+**Per-channel override** — different channels can use different models. Add to `data/channels/<id>/tools.toml`:
+```toml
+[llm]
+model = "gpt-4o"
+```
 
 ---
 

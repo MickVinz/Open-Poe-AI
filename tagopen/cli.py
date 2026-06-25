@@ -17,8 +17,10 @@ def main() -> None:
         logger_factory=structlog.PrintLoggerFactory(),
     )
 
+    from tagopen.llm import configure
     from tagopen.gateway.app import start
 
+    configure()
     asyncio.run(start())
 
 

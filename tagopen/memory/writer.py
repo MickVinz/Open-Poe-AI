@@ -9,9 +9,7 @@ from __future__ import annotations
 
 import logging
 
-import litellm
-
-from tagopen.config import settings
+from tagopen.llm import acompletion
 
 logger = logging.getLogger(__name__)
 
@@ -74,8 +72,8 @@ async def run_memory_curation(
     final_reply: str,
 ) -> None:
     try:
-        response = await litellm.acompletion(
-            model=settings.llm_model,
+        response = await acompletion(
+            channel_id=channel_id,
             messages=[
                 {"role": "system", "content": _CURATION_PROMPT},
                 # Provide the last few turns as context

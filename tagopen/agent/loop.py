@@ -6,11 +6,10 @@ import json
 import logging
 from typing import TYPE_CHECKING, Any
 
-import litellm
-
 from tagopen.agent.context import build_messages, build_system_prompt
 from tagopen.agent.skills import maybe_create_skill
 from tagopen.config import settings
+from tagopen.llm import acompletion
 from tagopen.memory.store import MessageStore
 from tagopen.memory.writer import run_memory_curation
 from tagopen.tools.registry import get_channel_tools, dispatch_tool
@@ -63,8 +62,8 @@ async def run_agent_loop(
     final_text = ""
 
     for _round in range(MAX_TOOL_ROUNDS):
-        response = await litellm.acompletion(
-            model=settings.llm_model,
+        response = await acompletion(
+            channel_id=channel_id,
             messages=[{"role": "system", "content": system_prompt}] + messages,
             tools=tools or None,
             tool_choice="auto" if tools else None,

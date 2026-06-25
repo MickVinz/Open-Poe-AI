@@ -5,9 +5,8 @@ from __future__ import annotations
 import logging
 from datetime import date
 
-import litellm
-
 from tagopen.config import settings
+from tagopen.llm import acompletion
 
 logger = logging.getLogger(__name__)
 
@@ -58,8 +57,8 @@ async def maybe_create_skill(
     prompt = _SKILL_CREATION_PROMPT.format(today=date.today(), tool_calls=tool_call_count)
 
     try:
-        response = await litellm.acompletion(
-            model=settings.llm_model,
+        response = await acompletion(
+            channel_id=channel_id,
             messages=[
                 {"role": "system", "content": prompt},
                 {"role": "user", "content": f"Conversation:\n{conversation_summary}\n\nFinal reply:\n{final_reply}"},
