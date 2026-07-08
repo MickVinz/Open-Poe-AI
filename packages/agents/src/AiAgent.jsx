@@ -665,7 +665,13 @@ const ChatPage = ({
       let errorMessage = err.message || "Something went wrong. Check browser console";
       if (err.response) {
         const { status, data } = err.response;
-        errorMessage = data?.error || "Not enough credits";
+        if (status === 401 || status === 403) {
+          errorMessage = "Your API key was rejected (invalid or expired). Update it in Settings and try again.";
+        } else if (status === 402) {
+          errorMessage = data?.error || "Not enough credits";
+        } else {
+          errorMessage = data?.error || data?.detail || `Request failed (${status})`;
+        }
       } else {
         errorMessage = err.message;
       }
